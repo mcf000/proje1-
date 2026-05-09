@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Teknolojileri Projesi | Film Rehberi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .movie-card { display: none; margin-top: 30px; }
+        .poster { border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">MEHMET ZENGİNCE</a>
+            <div class="collapse navbar-collapse d-flex justify-content-end">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Hakkımda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="cv.html">Özgeçmiş</a></li>
+                    <li class="nav-item"><a class="nav-link" href="sehir.html">Şehrim</a></li>
+                    <li class="nav-item"><a class="nav-link" href="miras.html">Mirasımız</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="film.html">Film Rehberi</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <header class="text-center mb-5">
+            <h1 class="display-4 text-primary">Film Rehberi</h1>
+            <p class="lead">Merak ettiğiniz filmi arayın, detaylarını anında öğrenin.</p>
+        </header>
+
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <input type="text" id="movieSearch" class="form-control" placeholder="Film adı yazınız... (Örn: Inception)" aria-label="Film adı">
+                    <button class="btn btn-primary" type="button" id="searchBtn">Ara</button>
+                </div>
+                <div id="errorMsg" class="text-danger text-center"></div>
+            </div>
+        </div>
+
+        <div id="movieResult" class="row movie-card justify-content-center">
+            <div class="col-md-4 text-center">
+                <img id="moviePoster" src="" alt="Film Afişi" class="img-fluid poster mb-3">
+            </div>
+            <div class="col-md-6">
+                <h2 id="movieTitle" class="text-dark"></h2>
+                <p><strong>Yıl:</strong> <span id="movieYear"></span></p>
+                <p><strong>IMDB Puanı:</strong> <span id="movieRating" class="badge bg-warning text-dark"></span></p>
+                <p><strong>Özet:</strong></p>
+                <p id="moviePlot" class="text-muted"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('searchBtn').addEventListener('click', function() {
+            const movieName = document.getElementById('movieSearch').value;
+            const apiKey = 'a7c9423c'; // Kendi özel OMDb API anahtarım
+            const url = `https://www.omdbapi.com/?t=${movieName}&apikey=${apiKey}`;
+
+            if (movieName === "") {
+                document.getElementById('errorMsg').innerText = "Lütfen bir film adı giriniz.";
+                return;
+            }
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.Response === "True") {
+                        document.getElementById('errorMsg').innerText = "";
+                        document.getElementById('movieResult').style.display = "flex";
+                        document.getElementById('movieTitle').innerText = data.Title;
+                        document.getElementById('movieYear').innerText = data.Year;
+                        document.getElementById('movieRating').innerText = data.imdbRating;
+                        document.getElementById('moviePlot').innerText = data.Plot;
+                        document.getElementById('moviePoster').src = data.Poster !== "N/A" ? data.Poster : 'https://via.placeholder.com/300x450?text=Afiş+Yok';
+                    } else {
+                        document.getElementById('movieResult').style.display = "none";
+                        document.getElementById('errorMsg').innerText = "Film bulunamadı, lütfen tekrar deneyiniz.";
+                    }
+                })
+                .catch(err => {
+                    console.error("Hata:", err);
+                    document.getElementById('errorMsg').innerText = "Bir hata oluştu.";
+                });
+        });
+    </script>
+
+    <footer class="text-center mt-5 p-3 text-muted">
+        <small>&copy; 2026 Mehmet Zengince - Tüm Hakları Saklıdır.</small>
+    </footer>
+</body>
+</html>
