@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Teknolojileri Projesi | Giriş Yap</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card shadow-lg border-0">
+                    <div class="card-header bg-dark text-white text-center py-3">
+                        <h3>Öğrenci Giriş Sistemi</h3>
+                    </div>
+                    <div class="card-body p-4">
+                        <form id="loginForm">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">E-posta Adresi:</label>
+                                <input type="email" class="form-control" id="email" placeholder="mehmet.zengince@ogr.sakarya.edu.tr" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="sifre" class="form-label">Şifre (Öğrenci No):</label>
+                                <input type="password" class="form-control" id="sifre" placeholder="B251210557" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 py-2">Giriş Yap</button>
+                        </form>
+                        <div id="hataMesaji" class="text-danger mt-3 text-center"></div>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="index.html" class="text-decoration-none text-muted">← Ana Sayfaya Dön</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const emailInput = document.getElementById('email').value;
+            const sifreInput = document.getElementById('sifre').value;
+
+            // Senin verdiğin bilgilerle kontrol ediyoruz
+            const dogruEmail = "mehmet.zengince@ogr.sakarya.edu.tr";
+            const dogruSifre = "B251210557";
+
+            if (emailInput === dogruEmail && sifreInput === dogruSifre) {
+                // Bilgiler doğruysa Hoş geldin sayfasına yönlendir
+                window.location.href = "hosgeldin.html";
+            } else {
+                // Hatalıysa uyarı ver
+                document.getElementById('hataMesaji').innerText = "Hatalı e-posta veya şifre girdiniz!";
+            }
+        });
+    </script>
+</body>
+</html>
