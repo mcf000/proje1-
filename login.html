@@ -31,19 +31,16 @@
                         <form action="login.php" method="POST">
                             <div class="mb-3">
                                 <label for="email" class="form-label">E-posta Adresi:</label>
-                               <input type="email" class="form-control" id="email" placeholder="E-posta adresinizi giriniz" required>
+                               <input type="email" class="form-control" id="email" name="email" placeholder="E-posta adresinizi giriniz" required>
                             </div>
                             <div class="mb-3">
                                 <label for="sifre" class="form-label">Şifre (Öğrenci No):</label>
-                                <input type="password" class="form-control" id="sifre" placeholder="Şifrenizi giriniz" required>
+                                <input type="password" class="form-control" id="sifre" name="password" placeholder="Şifrenizi giriniz" required>
                             </div>
                             <button type="submit" class="btn btn-primary w-100 py-2">Giriş Yap</button>
                         </form>
                         <div id="hataMesaji" class="text-danger mt-3 text-center"></div>
                     </div>
-                </div>
-                <div class="text-center mt-3">
-                    <a href="index.html" class="text-decoration-none text-muted">← Ana Sayfaya Dön</a>
                 </div>
             </div>
         </div>
