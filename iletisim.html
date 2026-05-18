@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="index.html">MEHMET ZENGİNCE</a>
             <div class="collapse navbar-collapse d-flex justify-content-end">
@@ -31,38 +31,38 @@
     <div class="container mt-5">
         <header class="text-center mb-5 border-bottom pb-3">
             <h1 class="display-4 text-primary">Bana Ulaşın</h1>
-            <p class="lead">Görüş, öneri ve mesajlarınız için aşağıdaki formu doldurabilirsiniz.</p>
+            <p class="lead">Görüş, öneri and mesajlarınız için aşağıdaki formu doldurabilirsiniz.</p>
         </header>
 
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <form action="iletisim.php" method="POST">
+                <form action="iletisim.php" method="POST" id="iletisimForm">
                     
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="ad" class="form-label">Adınız:</label>
-                            <input type="text" class="form-control" id="ad" placeholder="Adınızı giriniz">
+                            <input type="text" class="form-control" id="ad" name="ad" placeholder="Adınızı giriniz" required>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="soyad" class="form-label">Soyadınız:</label>
-                            <input type="text" class="form-control" id="soyad" placeholder="Soyadınızı giriniz">
+                            <input type="text" class="form-control" id="soyad" name="soyad" placeholder="Soyadınızı giriniz" required>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="email" class="form-label">E-posta Adresiniz:</label>
-                            <input type="email" class="form-control" id="email" placeholder="ornek@mail.com">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="ornek@mail.com" required>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="telefon" class="form-label">Telefon Numaranız:</label>
-                            <input type="tel" class="form-control" id="telefon" placeholder="05XX XXX XX XX">
+                            <input type="tel" class="form-control" id="telefon" name="telefon" placeholder="05XX XXX XX XX">
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="mesaj" class="form-label">Mesajınız:</label>
-                        <textarea class="form-control" id="mesaj" rows="5" placeholder="Mesajınızı buraya yazınız..."></textarea>
+                        <textarea class="form-control" id="mesaj" name="mesaj" rows="5" placeholder="Mesajınızı buraya yazınız..." required></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100 py-2">Gönder</button>
@@ -75,30 +75,18 @@
         <small>&copy; 2026 Mehmet Zengince - Tüm Hakları Saklıdır.</small>
     </footer>
 
+    <script src="main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/validator/13.11.0/validator.min.js"></script>
+    
     <script>
-        document.getElementById('iletisimFormu').addEventListener('submit', function(event) {
-            // Formun kendi kendine sayfa yenilemesini durduruyoruz
-            event.preventDefault();
+        document.getElementById('iletisimForm').addEventListener('submit', function(e) {
+            const emailInput = document.getElementById('email').value;
 
-            // Kutuların içindeki yazıları alıp kenarlarındaki boşlukları (trim) temizliyoruz
-            const ad = document.getElementById('ad').value.trim();
-            const soyad = document.getElementById('soyad').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const telefon = document.getElementById('telefon').value.trim();
-            const mesaj = document.getElementById('mesaj').value.trim();
-
-            // Boşluk kontrolü yapıyoruz
-            if (ad === "" || soyad === "" || email === "" || telefon === "" || mesaj === "") {
-                alert("Lütfen tüm alanları eksiksiz doldurunuz!");
-            } else {
-                // Her şey doluysa senin istediğin başarı mesajını gösteriyoruz
-                alert("Mesajınız iletildi, teşekkürler!");
-                
-                // Gönderdikten sonra formu sıfırlayıp temizliyoruz
-                document.getElementById('iletisimFormu').reset();
+            if (!validator.isEmail(emailInput)) {
+                e.preventDefault(); 
+                alert("Lütfen geçerli bir e-posta adresi giriniz! (Validator.js uyarısı)");
             }
         });
     </script>
-    <script src="main.js"></script>
 </body>
 </html>
